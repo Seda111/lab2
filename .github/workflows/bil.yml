@@ -6,11 +6,15 @@ on:
  
 jobs:
   build-and-test:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - name: install cppunit
-        run: sudo apt install -y g++
-      - name: build
-        run: g++ hello.cpp
+    strategy:
+      matrix:
+        target: [hello1.cpp, hello2.cpp, hello3.cpp]
+  
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: install cppunit
+      run: sudo apt install -y g++
+    - name: build
+      run: g++  ${{ matrix.target }}
      
